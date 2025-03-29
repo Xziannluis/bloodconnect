@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blod - Blood Donation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: whitesmoke;
+        }
+        .header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.header a {
+    color: black;
+    text-decoration: none;
+    margin: 5px 15px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .header a {
+        display: block;
+        margin: 5px 0;
+    }
+}
+        .navbar {
+            background-color: #da1626 !important;
+            padding: 10px 20px;
+        }
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: bold;
+            color: white !important;
+        }
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffd700 !important;
+            transform: scale(1.1);
+        }
+        .navbar-toggler {
+            border: none;
+            background-color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #312929;
+        }
+        .navbar-toggler-icon {
+            filter: invert(100%);
+        }
+        .navbar img{
+            border-radius: 30px;
+        }
+        .btn-outline-light {
+            border-color: rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            background-color: #d49711;
+            box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.3);
+
+        }
+        .btn-outline-light:hover {
+            background-color: #ffae00;
+            color: #ffffff;
+            box-shadow: 0px 10px 5px rgba(235, 199, 0, 0.87);
+
+        }
+        .hero {
+            background: url('blod.jpg') center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero h1 {
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .btn-main {
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-main:hover {
+            background-color: #a53030;
+            color: white;
+        }
+        .footer {
+            background-color: rgb(230, 226, 226);
+            color: rgb(31, 29, 29);
+            padding: 40px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .container img {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+        .carousel {
+            position: relative;
+        }
+
+        .carousel img {
+            height: 500px; /* Adjust this height as needed */
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            width: 100%;
+        }
+
+        .carousel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        }
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .card {
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 10px #dc3545;
+        }
+            .button {
+                display: inline-block;
+                background-color: #dc3545;
+                color: white;
+                padding: 10px 15px;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            @media (max-width: 768px) {
+                .card {
+                    min-height: auto;
+                }
+            }
+            .btn-custom {
+                min-width: 120px; /* Ensures uniform width */
+                padding: 10px 20px; /* Adjusts button size */
+                font-size: 16px; /* Makes text more readable */
+            }
+            #sign{
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                background-color: #cc3c37;
+                color: #f8f9fa;
+                font-size: 16px;
+            }
+            #sign:hover{
+                background-color: #ffae00;
+            }
+            #send{
+                padding: 10px 20px;
+                border-radius: 5px;
+                border: none;
+                background-color: #1258c2;
+                color: #f8f9fa;
+                font-size: 16px;
+                box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.3);
+            }
+            #send:hover{
+                background-color: #ffae00;
+            }
+            #message{
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #312929;
+            }
+            #bloodmain {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column; /* Ensures content stacks properly */
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .donate-button {
+            color: rgb(255, 255, 255);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: #da1626;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            border-radius: 5px; 
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .donate-button:hover {
+            background-color: #ffae00;
+            color: #ffffff;
+            border-color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header text-center bg-light" id="#top">
+        <a class="text-dark" href="tel:+639918821655">📞 (+63) 9918-821-655</a>
+        <a class="text-dark" href="mailto:info@example.com">✉️ info@example.com</a>
+        <a class="text-dark" href="https://www.google.com/local/place/fid/0x3301ca2f04581cbb:0xe4e2656c7835d5f2/photosphere?iu=https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid%3DpdVDUhSkANIHs_1mfcIGRw%26cb_client%3Dlu.gallery.gps%26w%3D160%26h%3D106%26yaw%3D308.6075%26pitch%3D0%26thumbfov%3D100&amp;ik=CAISFnBkVkRVaFNrQU5JSHNfMW1mY0lHUnc%3D" target="_blank">📍 Agusan del Norte, Nasipit, SMCC</a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="heart.webp" alt="logo" class="me-2" style="width: 40px; height: 40px;">
+                BloodConnect
+            </a>
+            <!-- Toggler Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="whygiveblood.html">Why give Blood</a></li>
+                    <li class="nav-item"><a class="nav-link" href="whocangiveblood.html">Who can give Blood</a></li>
+                    <li class="nav-item"><a class="nav-link" href="donationprocess.html">Donation Process</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wheretodonate.html">Where to Donate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="news.html">News & Campaigns</a></li><br>
+                </ul>
+                <!--Sign Buttons -->
+                <div class="d-flex flex-column flex-lg-row align-items-center ms-lg-2">
+                    <a href="beforeyoudonate.html" class="btn btn-outline-light me-lg-2 mb-2 mb-lg-0">Donate</a><br>
+                    <a href="beforeyourequest.html" class="btn btn-outline-light me-lg-2 mb-2 mb-lg-0">Request</a><br>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--Why give blood-->
+    <div class="container text-left mt-4">
+        <h1>Who can give blood</h1>
+        <h5>Find out if you are able to give blood for the first time.</h5><br>
+        <h5>On this page:</h5>
+        <ul>
+            <li>Who can donate</li>
+            <li>Who can't donate</li>
+            <li>Who might have to wait to donate</li>
+            <li>Female donors</li>
+            <li>How often can I give blood?</li><br>
+        </ul>
+
+        <h2>Who can donate blood</h2><br>
+        <h5>To donate blood you will need to:</h5>
+        <ul>
+            <li>be generally fit and well</li>
+            <li>be aged between 17 and 65</li>
+            <li>weigh between 7 stone 12 lbs (50kg) and 25 stone (158kg)</li>
+            <li>have suitable veins (we will check these before you donate)</li>
+            <li>meet all donor eligibility criteria (we will check this with you before you donate)</li><hr>
+        </ul>
+
+        <h2>Who can't donate blood</h2><br>
+        <h5>You can't donate if you:</h5>
+        <ul>
+            <li>have had most types of cancer</li>
+            <li>have some heart conditions</li>
+            <li>have tested positive for HIV</li>
+            <li>have had an organ transplant</li>
+            <li>are a hepatitis B carrier</li>
+            <li>are a hepatitis C carrier</li>
+            <li>have injected non-prescribed drugs including body-building and injectable tanning agents. You may be able to give if a doctor prescribed the drugs</li>
+        </ul>
+        <h5>There are other reasons you might not be able to give blood. If you are not sure about your eligibility, please contact us.</h5><hr>
+    
+        <br><h2>Who might have to wait to donate blood</h2>
+        <p>There are some health, travel and lifestyle reasons that may stop you from being able to donate blood on a temporary basis.</p>
+        <p>If you are not sure you can donate, please call us on 09918821655 to discuss your situation.</p>
+    
+        <br><h2>Sexual activity that means you may have to wait</h2><br>
+        <h5>You may have to wait up to 3 months before you can donate if:</h5>
+        <ul>
+            <li>you have had anal sex with a new partner in the last 3 months</li>
+            <li>you finished taking Pre-Exposure Prophylaxis (PrEP) or Post-Exposure Prophylaxis (PEP) in the last 3 months</li>
+        </ul>
+        <h5>In the last 3 months you have had sexual contact with a partner who is:</h5>
+        <ul>
+            <li>HIV positive</li>
+            <li>HTLV positive</li>
+            <li>a hepatitis B carrier</li>
+            <li>a hepatitis C carrier</li>
+            <li>syphilis positive</li>
+            <li>has received money or drugs for sex</li>
+            <li>has injected non-prescribed drugs including body-building and injectable tanning agents</li><hr>
+        </ul>
+
+        <br><h2>Female donors under 20 years old</h2><br>
+        <h5>Check how much blood you have</h5>
+        <p>If you are a woman under 20 and you weigh under 10st 3lb (65kg) or are under 5' 6" (168cm) tall you will need to check you have enough blood to donate safely.</p>
+        <p>Find out more about your height and weight affecting your donation.</p><hr>
+
+        <h2>How often can I give blood?</h2>
+        <p>Men can give blood every 12 weeks and women can give blood every 16 weeks.</p>
+        <p>This is because men generally have higher iron levels than women.</p>
+        <p>If you have genetic haemochromatosis, you may be able to donate as often as every six weeks.</p>
+        <hr><br>
+    </div>
+    <!--ROW-->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center p-3">
+                        <img src="venue.jpg" alt="venues">
+                        <br>
+                        <h4>About our donation venues</h4>
+                        <a href="wheretodonate.html">>> Where can you donate</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center p-3">
+                        <img src="happens.jpg" alt="happens">
+                        <h4>What happens on the day?</h4>
+                        <a href="whathappens.html">>> What happens when you donate</a>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-4 ">
+                <div class="card text-center p-3">
+                    <br>
+                    <h3>Become a blood donor</h3>
+                    <a href="beforeyoudonate.html" class="donate-button">Donate now!</a>
+                </div>
+            </div>
+        </div>
+
+            <a href="#top" id="bloodmain"> >> Back to top</a>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>BloodConnect</h5>
+                    <p>We need your help now more than ever to continue providing lifesaving blood to hospitals and clinics in Nasipit.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+                    <a class="text-dark" href="https://www.facebook.com/profile.php?id=100087208967948">Facebook page</a><br>
+                    <a class="text-dark"  href="https://www.youtube.com/@BloodConnect-2025">YouTube page</a><br>
+                </div>
+                <div class="col-md-4">
+                    <h5>Message Us</h5>
+                    <p>What is your concern?</p>
+                    <textarea id="message" class="form-control mb-4" placeholder="Your Message" required></textarea>
+                    <button class="btn mt-2" id="send">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</html>

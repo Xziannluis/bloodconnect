@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(248, 247, 240);
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 85vh;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+            margin: 30px auto;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(204, 195, 195, 0.986);
+            animation: fadeIn 1s ease-in-out; 
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .image-container {
+            width: 70px;
+            height: 70px;
+            background: #a82c23;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            margin-bottom: 35px;
+        }
+
+        .image-container img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+        }
+
+        .form-control::placeholder {
+            color: #666;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: none;
+        }
+
+        #register {
+            background-color: #164ada;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            width: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #register:hover {
+            background-color: #1640b6;
+        }
+
+        #clear {
+            background-color: grey;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            width: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #clear:hover {
+            background-color: rgb(109, 103, 103);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center-align buttons */
+            gap: 10px;
+            margin-top: 20px; /* Add spacing above buttons */
+        }
+
+        .id-upload-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .id-upload {
+            flex: 1 1 45%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .square-box {
+            width: 100%;
+            height: 150px;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .square-box img {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            display: none;
+        }
+
+        .square-box span {
+            color: #888;
+            font-size: 14px;
+            position: absolute;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        .nav-buttons {
+            top: 20px;
+            right: 20px;
+            gap: 10px;
+            margin-bottom: 30px;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .id-upload {
+                flex: 1 1 100%; 
+            }
+
+            .square-box {
+                height: 120px; 
+            }
+        }
+        /* From Uiverse.io by milley69 */ 
+        .loading svg polyline {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            }
+
+            .loading svg polyline#back {
+            fill: none;
+            stroke: #f0a8a869;
+            }
+
+            .loading svg polyline#front {
+            fill: none;
+            stroke: #5f0507;
+            stroke-dasharray: 48, 144;
+            stroke-dashoffset: 192;
+            animation: dash_682 1.4s linear infinite;
+            }
+
+            @keyframes dash_682 {
+            72.5% {
+                opacity: 0;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+            }
+            #bloodconnect {
+            font-size: 1.5em;
+            color: #5f0507;
+            }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <a href="beforeyourequest.html" class="btn btn-danger m-2">Back</a>
+        <a href="index.html" class="btn btn-primary m-3">Home</a>
+    </div>
+    <div class="container">
+        <div class="login-container">
+            <div class="image-container">
+                <img src="heart.webp" class="img-fluid">
+            </div>
+             <!-- From Uiverse.io by milley69 --> 
+             <div class="loading" style="text-align: center;" id="bloodconnect">
+                Blood<svg width="64px" height="48px">
+                    <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="back"></polyline>
+                <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="front"></polyline>
+                </svg>Connect
+            </div><br>
+            <h2>Register a Blood Request</h2>
+            <form id="requestForm" action="add_request.php" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input type="text" id="requesterName" name="name" class="form-control" placeholder="Patient name" required><br>
+                    <div id="nameError" class="error-message"></div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="birthdate" class="form-label">Select Birthdate:</label>
+                        <input type="date" id="birthdate" name="birthdate" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="requesterGender" class="form-label">Select Gender:</label>
+                        <select id="requesterGender" name="gender" class="form-control" required>
+                            <option value="" disabled selected>Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="gay">Gay</option>
+                            <option value="lesbian">Lesbian</option>
+                            <option value="bisexual">Bisexual</option>
+                            <option value="transgender">Transgender</option>
+                            <option value="non-binary">Non-Binary</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="requesterContact" name="contact" class="form-control" placeholder="Mobile number or email" required><br>
+                    <div id="contactError" class="error-message"></div>
+                </div>
+                <div class="mb-3">
+                    <select id="requesterBloodType" name="blood_type" class="form-control" required>
+                        <option value="">Blood type needed</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select id="requesterLocation" name="location" class="form-control" required>
+                        <option value="">Select barangay in Nasipit</option>
+                        <option value="Aclan">Aclan</option>
+                        <option value="Amontay">Amontay</option>
+                        <option value="Ata-atahon">Ata-atahon</option>
+                        <option value="Barangay 1 (Poblacion)">Barangay 1 (Poblacion)</option>
+                        <option value="Barangay 2 (Poblacion)">Barangay 2 (Poblacion)</option>
+                        <option value="Barangay 3 (Poblacion)">Barangay 3 (Poblacion)</option>
+                        <option value="Barangay 4 (Poblacion)">Barangay 4 (Poblacion)</option>
+                        <option value="Barangay 5 (Poblacion)">Barangay 5 (Poblacion)</option>
+                        <option value="Barangay 6 (Poblacion)">Barangay 6 (Poblacion)</option>
+                        <option value="Barangay 7 (Poblacion)">Barangay 7 (Poblacion)</option>
+                        <option value="Camagong">Camagong</option>
+                        <option value="Cubi-Cubi">Cubi-Cubi</option>
+                        <option value="Culit">Culit</option>
+                        <option value="Jaguimitan">Jaguimitan</option>
+                        <option value="Kinabjangan">Kinabjangan</option>
+                        <option value="Punta">Punta</option>
+                        <option value="Santa Ana">Santa Ana</option>
+                        <option value="Talisay">Talisay</option>
+                        <option value="Triangulo">Triangulo</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button type="reset" class="btn btn-secondary w-25" id="clear">Clear</button>
+                    <button type="submit" class="btn btn-primary w-25" id="register">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="notification" style="display:none; position: fixed; top: 20px; right: 20px; background-color: #4CAF50; color: white; padding: 15px; border-radius: 5px;">
+        Request submitted successfully!
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let today = new Date();
+            let minAge = new Date();
+            let maxAge = new Date();
+
+            minAge.setFullYear(today.getFullYear() - 65);
+            maxAge.setFullYear(today.getFullYear() - 18);
+
+            let minDate = minAge.toISOString().split("T")[0];
+            let maxDate = maxAge.toISOString().split("T")[0];
+
+            document.getElementById("birthdate").setAttribute("min", minDate);
+            document.getElementById("birthdate").setAttribute("max", maxDate);
+
+            function displayImagePreview(input, previewElement, boxElement) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        previewElement.src = e.target.result;
+                        previewElement.style.display = 'block';
+                        boxElement.querySelector('span').style.display = 'none';
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                      previewElement.src = '';
+                      previewElement.style.display = 'none';
+                      boxElement.querySelector('span').style.display = 'flex';
+                      boxElement.querySelector('span').style.alignItems = 'center';
+                      boxElement.querySelector('span').style.justifyContent = 'center';
+                }
+            }
+
+            const idFrontInput = document.getElementById('idFront');
+            const idFrontPreview = document.getElementById('idFrontPreview');
+            const idFrontBox = document.getElementById('idFrontBox');
+            idFrontInput.addEventListener('change', function() {
+                displayImagePreview(this, idFrontPreview, idFrontBox);
+            });
+
+            const idBackInput = document.getElementById('idBack');
+            const idBackPreview = document.getElementById('idBackPreview');
+            const idBackBox = document.getElementById('idBackBox');
+            idBackInput.addEventListener('change', function() {
+                displayImagePreview(this, idBackPreview, idBackBox);
+            });
+
+            document.getElementById("requestForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const nameInput = document.getElementById("requesterName").value;
+                const nameErrorDiv = document.getElementById("nameError");
+                const contactInput = document.getElementById("requesterContact").value;
+                const contactErrorDiv = document.getElementById("contactError");
+                const isValidName = /^[a-zA-Z\s]+$/.test(nameInput);
+                const isValidMobile = /^\+63\d{9}$|09\d{9}$/.test(contactInput);
+                const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInput);
+
+                if (!isValidName) {
+                    nameErrorDiv.textContent = "Please enter a valid name without numbers.";
+                    return;
+                } else {
+                    nameErrorDiv.textContent = "";
+                }
+
+                if (!isValidMobile && !isValidEmail) {
+                    contactErrorDiv.textContent = "Please enter a valid Philippine mobile number or email address.";
+                    return;
+                } else {
+                    contactErrorDiv.textContent = "";
+                }
+
+                if (isValidName && (isValidMobile || isValidEmail)) {
+                    const requestData = {
+                        name: nameInput,
+                        birthdate: document.getElementById("birthdate").value,
+                        gender: document.getElementById("requesterGender").value,
+                        contact: contactInput,
+                        bloodType: document.getElementById("requesterBloodType").value,
+                        location: document.getElementById("requesterLocation").value,
+                        checked: false // Default checkbox state
+                    };
+
+                    // Save to localStorage
+                    let requests = JSON.parse(localStorage.getItem('requests')) || [];
+                    requests.push(requestData);
+                    localStorage.setItem('requests', JSON.stringify(requests));
+
+                    // Show notification and reset form
+                    document.getElementById('notification').style.display = 'block';
+                    document.getElementById("requestForm").reset();
+
+                    setTimeout(() => {
+                        document.getElementById('notification').style.display = 'none';
+                    }, 2000);
+                }
+            });
+
+            // Helper function to convert file to Data URL
+            function readFileAsDataURL(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(reader.error);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            document.querySelectorAll('.square-box').forEach(box => {
+                box.addEventListener('click', function () {
+                    const input = this.querySelector('input[type="file"]');
+                    input.click();
+                });
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
