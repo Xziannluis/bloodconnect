@@ -25,3 +25,12 @@ CREATE TABLE IF NOT EXISTS requests (
     location VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+
+-- Table for admin messages
+CREATE TABLE IF NOT EXISTS admin_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

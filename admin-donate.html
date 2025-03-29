@@ -210,6 +210,7 @@
             <div class="nav-buttons">
                 <a href="index.html" class="btn btn-danger">Log out</a>
                 <a href="admin-request.html" class="btn btn-primary">Go to Requests</a>
+                <a href="admin_messages.html" class="btn btn-primary">Go to messages</a>
             </div>
         </div>
         <div class="dashboard-content">
@@ -233,6 +234,66 @@
                 </table>
             </div>
         </div>
+
+        <!-- Modal for editing donor -->
+        <div id="editDonorModal" class="modal">
+            <div class="edit-form-container">
+                <h2>Edit Donor</h2>
+                <form id="editDonorForm">
+                    <input type="text" id="editName" placeholder="Complete name" required>
+                    <input type="date" id="editBirthdate" required>
+                    <select id="editGender" required>
+                        <option value="" disabled selected>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="gay">Gay</option>
+                        <option value="lesbian">Lesbian</option>
+                        <option value="bisexual">Bisexual</option>
+                        <option value="transgender">Transgender</option>
+                        <option value="non-binary">Non-Binary</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                    <input type="text" id="editContact" placeholder="Mobile number or email" required>
+                    <select id="editBloodType" required>
+                        <option value="">Your blood type</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <select id="editLocation" required>
+                        <option value="">Select barangay in Nasipit</option>
+                        <option value="Aclan">Aclan</option>
+                        <option value="Amontay">Amontay</option>
+                        <option value="Ata-atahon">Ata-atahon</option>
+                        <option value="Barangay 1 (Poblacion)">Barangay 1 (Poblacion)</option>
+                        <option value="Barangay 2 (Poblacion)">Barangay 2 (Poblacion)</option>
+                        <option value="Barangay 3 (Poblacion)">Barangay 3 (Poblacion)</option>
+                        <option value="Barangay 4 (Poblacion)">Barangay 4 (Poblacion)</option>
+                        <option value="Barangay 5 (Poblacion)">Barangay 5 (Poblacion)</option>
+                        <option value="Barangay 6 (Poblacion)">Barangay 6 (Poblacion)</option>
+                        <option value="Barangay 7 (Poblacion)">Barangay 7 (Poblacion)</option>
+                        <option value="Camagong">Camagong</option>
+                        <option value="Cubi-Cubi">Cubi-Cubi</option>
+                        <option value="Culit">Culit</option>
+                        <option value="Jaguimitan">Jaguimitan</option>
+                        <option value="Kinabjangan">Kinabjangan</option>
+                        <option value="Punta">Punta</option>
+                        <option value="Santa Ana">Santa Ana</option>
+                        <option value="Talisay">Talisay</option>
+                        <option value="Triangulo">Triangulo</option>
+                    </select>
+                    <div class="button-container">
+                        <button type="button" class="btn save-btn" onclick="saveEditedDonor()">Save</button>
+                        <button type="button" class="btn cancel-btn" onclick="closeEditModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Modal for image preview -->
@@ -240,69 +301,17 @@
         <img id="modalImage" src="" alt="Preview">
     </div>
 
-    <!-- Edit Form Modal -->
-    <div id="editFormModal" class="modal">
-        <div class="edit-form-container">
-            <h2>Edit Donor</h2>
-            <form id="editDonorForm">
-                <input type="text" id="editName" placeholder="Complete name" required>
-                <input type="date" id="editBirthdate" required>
-                <select id="editGender" required>
-                    <option value="" disabled selected>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="gay">Gay</option>
-                    <option value="lesbian">Lesbian</option>
-                    <option value="bisexual">Bisexual</option>
-                    <option value="transgender">Transgender</option>
-                    <option value="non-binary">Non-Binary</option>
-                    <option value="prefer-not-to-say">Prefer not to say</option>
-                </select>
-                <input type="text" id="editContact" placeholder="Mobile number or email" required>
-                <select id="editBloodType" required>
-                    <option value="">Your blood type</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                </select>
-                <select id="editLocation" required>
-                    <option value="">Select barangay in Nasipit</option>
-                    <option value="Aclan">Aclan</option>
-                    <option value="Amontay">Amontay</option>
-                    <option value="Ata-atahon">Ata-atahon</option>
-                    <option value="Barangay 1 (Poblacion)">Barangay 1 (Poblacion)</option>
-                    <option value="Barangay 2 (Poblacion)">Barangay 2 (Poblacion)</option>
-                    <option value="Barangay 3 (Poblacion)">Barangay 3 (Poblacion)</option>
-                    <option value="Barangay 4 (Poblacion)">Barangay 4 (Poblacion)</option>
-                    <option value="Barangay 5 (Poblacion)">Barangay 5 (Poblacion)</option>
-                    <option value="Barangay 6 (Poblacion)">Barangay 6 (Poblacion)</option>
-                    <option value="Barangay 7 (Poblacion)">Barangay 7 (Poblacion)</option>
-                    <option value="Camagong">Camagong</option>
-                    <option value="Cubi-Cubi">Cubi-Cubi</option>
-                    <option value="Culit">Culit</option>
-                    <option value="Jaguimitan">Jaguimitan</option>
-                    <option value="Kinabjangan">Kinabjangan</option>
-                    <option value="Punta">Punta</option>
-                    <option value="Santa Ana">Santa Ana</option>
-                    <option value="Talisay">Talisay</option>
-                    <option value="Triangulo">Triangulo</option>
-                </select>
-                <div class="button-container">
-                    <button type="button" class="btn save-btn" onclick="saveEditedDonor()">Save</button>
-                    <button type="button" class="btn cancel-btn" onclick="closeEditForm()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const donorTableBody = document.getElementById('donorTableBody');
+            const editDonorModal = document.getElementById('editDonorModal');
+            const editName = document.getElementById('editName');
+            const editBirthdate = document.getElementById('editBirthdate');
+            const editGender = document.getElementById('editGender');
+            const editContact = document.getElementById('editContact');
+            const editBloodType = document.getElementById('editBloodType');
+            const editLocation = document.getElementById('editLocation');
+            let currentEditId = null;
 
             // Fetch donor data from the database
             function fetchDonors() {
@@ -331,12 +340,63 @@
                         <td>${donor.blood_type}</td>
                         <td>${donor.location}</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" onclick="openEditDonorModal(${donor.id})">Edit</button>
+                            <button class="btn btn-warning btn-sm" onclick="openEditModal(${donor.id}, '${donor.name}', '${donor.birthdate}', '${donor.gender}', '${donor.contact}', '${donor.blood_type}', '${donor.location}')">Edit</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteDonor(${donor.id})">Delete</button>
                         </td>
                     `;
                     donorTableBody.appendChild(row);
                 });
+            }
+
+            // Function to open the edit modal and populate fields
+            function openEditModal(id, name, birthdate, gender, contact, bloodType, location) {
+                currentEditId = id;
+                editName.value = name;
+                editBirthdate.value = birthdate;
+                editGender.value = gender;
+                editContact.value = contact;
+                editBloodType.value = bloodType;
+                editLocation.value = location;
+                editDonorModal.style.display = 'flex';
+            }
+
+            // Function to close the edit modal
+            function closeEditModal() {
+                editDonorModal.style.display = 'none';
+                currentEditId = null;
+            }
+
+            // Function to save the edited donor
+            function saveEditedDonor() {
+                const updatedDonor = {
+                    id: currentEditId,
+                    name: editName.value,
+                    birthdate: editBirthdate.value,
+                    gender: editGender.value,
+                    contact: editContact.value,
+                    blood_type: editBloodType.value,
+                    location: editLocation.value
+                };
+
+                fetch('update_donor.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updatedDonor)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            fetchDonors(); // Refresh the table
+                            closeEditModal();
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating donor:', error);
+                        alert('An error occurred while updating the donor.');
+                    });
             }
 
             // Function to delete a donor

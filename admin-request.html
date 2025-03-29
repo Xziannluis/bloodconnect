@@ -44,7 +44,7 @@
         h1 {
             text-align: center;
             margin-bottom: 30px;
-            color: #ffffff;
+            
         }
 
         #cardsContainer {
@@ -211,6 +211,7 @@
             <div class="nav-buttons">
                 <a href="index.html" class="btn btn-danger">Log out</a>
                 <a href="admin-donate.html" class="btn btn-primary">Go to Donors</a>
+                <a href="admin_messages.html" class="btn btn-primary">Go to messages</a>
             </div>
         </div>
         <div class="dashboard-content">
@@ -425,11 +426,15 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id, name, birthdate, gender, contact, bloodType, location })
                 })
-                    .then(response => response.text())
-                    .then(message => {
-                        alert(message);
-                        closeEditRequestModal();
-                        fetchRequests();
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            closeEditRequestModal();
+                            fetchRequests();
+                        } else {
+                            alert(data.error);
+                        }
                     })
                     .catch(error => console.error('Error updating request:', error));
             }

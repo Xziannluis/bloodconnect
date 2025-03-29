@@ -17,18 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("ssssssi", $name, $birthdate, $gender, $contact, $bloodType, $location, $id);
 
         if ($stmt->execute()) {
-            echo "Request updated successfully.";
+            echo json_encode(["message" => "Request updated successfully."]);
         } else {
-            echo "Error: " . $stmt->error;
+            echo json_encode(["error" => "Error updating request: " . $stmt->error]);
         }
 
         $stmt->close();
     } else {
-        echo "Invalid input data.";
+        echo json_encode(["error" => "Invalid input data."]);
     }
 
     $conn->close();
 } else {
-    echo "Invalid request method.";
+    echo json_encode(["error" => "Invalid request method."]);
 }
 ?>

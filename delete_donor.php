@@ -2,7 +2,8 @@
 include 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $id = isset($_GET['id']) ? intval($_GET['id']) : null;
+    parse_str(file_get_contents("php://input"), $_DELETE);
+    $id = isset($_DELETE['id']) ? intval($_DELETE['id']) : null;
 
     if ($id) {
         $stmt = $conn->prepare("DELETE FROM donors WHERE id = ?");
