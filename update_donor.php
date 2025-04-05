@@ -4,22 +4,21 @@ include 'db_connect.php';
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (isset($data['id'], $data['name'], $data['birthdate'], $data['gender'], $data['contact'], $data['blood_type'], $data['location'])) {
-    $stmt = $conn->prepare("UPDATE donors SET name = ?, birthdate = ?, gender = ?, contact = ?, blood_type = ?, location = ? WHERE id = ?");
-    $stmt->bind_param(
-        "ssssssi",
-        $data['name'],
-        $data['birthdate'],
-        $data['gender'],
-        $data['contact'],
-        $data['blood_type'],
-        $data['location'],
-        $data['id']
-    );
+    $id = intval($data['id']);
+    $name = $data['name'];
+    $birthdate = $data['birthdate'];
+    $gender = $data['gender'];
+    $contact = $data['contact'];
+    $bloodType = $data['blood_type'];
+    $location = $data['location'];
 
-    if ($stmt->execute()) {
+    $stmt = $conn->prepare("UPDATE donors SET name = ?, birthdate = ?, gender = ?, contact = ?, blood_type = ?, location = ? WHERE id = ?");
+    $stmt->bind_param("ssssssi", $name, $birthdate, $gender, $contact, $bloodType, $location, $id);
+
+    if ($stmt->execute() && $stmt->affected_rows > 0) {
         echo json_encode(["message" => "Donor updated successfully."]);
     } else {
-        echo json_encode(["error" => "Error updating donor: " . $stmt->error]);
+        echo json_encode(["error" => "Failed to update donor."]);
     }
 
     $stmt->close();

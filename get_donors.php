@@ -5,14 +5,14 @@ $sql = "SELECT * FROM donors";
 $result = $conn->query($sql);
 
 $donors = [];
-if ($result->num_rows > 0) {
+if ($result) {
     while ($row = $result->fetch_assoc()) {
         $donors[] = $row;
     }
+    echo json_encode($donors);
+} else {
+    echo json_encode(['error' => 'Failed to fetch donors.']);
 }
-
-header('Content-Type: application/json');
-echo json_encode($donors);
 
 $conn->close();
 ?>

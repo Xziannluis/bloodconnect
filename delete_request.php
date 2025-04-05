@@ -1,27 +1,31 @@
 <?php
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+    echo json_encode(['error' => 'Invalid request method']);
+    exit;
+}
+
+parse_str(file_get_contents("php://input"), $data);
+
+if (!isset($data['id'])) {
+    echo json_encode(['error' => 'Request ID is required']);
+    exit;
+}
+
+$requestId = intval($data['id']);
+
 include 'db_connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    parse_str(file_get_contents("php://input"), $_DELETE);
-    $id = isset($_DELETE['id']) ? intval($_DELETE['id']) : null;
+$stmt = $conn->prepare("DELETE FROM requests WHERE id = ?");
+$stmt->bind_param("i", $requestId);
 
-    if ($id) {
-        $stmt = $conn->prepare("DELETE FROM requests WHERE id = ?");
-        $stmt->bind_param("i", $id);
-
-        if ($stmt->execute()) {
-            echo json_encode(["message" => "Request deleted successfully."]);
-        } else {
-            echo json_encode(["error" => "Error deleting request: " . $stmt->error]);
-        }
-
-        $stmt->close();
-    } else {
-        echo json_encode(["error" => "Invalid ID."]);
-    }
-
-    $conn->close();
+if ($stmt->execute() && $stmt->affected_rows > 0) {
+    echo json_encode(['message' => 'Request deleted successfully.']);
 } else {
-    echo json_encode(["error" => "Invalid request method."]);
+    echo json_encode(['error' => 'Failed to delete request.']);
 }
+
+$stmt->close();
+$conn->close();
 ?>

@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
     if (isset($data['id'], $data['name'], $data['birthdate'], $data['gender'], $data['contact'], $data['bloodType'], $data['location'])) {
-        $id = $data['id'];
+        $id = intval($data['id']);
         $name = $data['name'];
         $birthdate = $data['birthdate'];
         $gender = $data['gender'];
@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conn->prepare("UPDATE requests SET name = ?, birthdate = ?, gender = ?, contact = ?, blood_type = ?, location = ? WHERE id = ?");
         $stmt->bind_param("ssssssi", $name, $birthdate, $gender, $contact, $bloodType, $location, $id);
 
-        if ($stmt->execute()) {
+        if ($stmt->execute() && $stmt->affected_rows > 0) {
             echo json_encode(["message" => "Request updated successfully."]);
         } else {
-            echo json_encode(["error" => "Error updating request: " . $stmt->error]);
+            echo json_encode(["error" => "Failed to update request."]);
         }
 
         $stmt->close();

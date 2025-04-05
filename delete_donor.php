@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $stmt = $conn->prepare("DELETE FROM donors WHERE id = ?");
         $stmt->bind_param("i", $id);
 
-        if ($stmt->execute()) {
+        if ($stmt->execute() && $stmt->affected_rows > 0) {
             echo json_encode(["message" => "Donor deleted successfully."]);
         } else {
-            echo json_encode(["error" => "Error deleting donor: " . $stmt->error]);
+            echo json_encode(["error" => "Failed to delete donor."]);
         }
 
         $stmt->close();

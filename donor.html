@@ -330,7 +330,7 @@
             </form>
         </div>
     </div>
-    <div id="notification" style="display:none; position: fixed; top: 20px; right: 20px; background-color: #4CAF50; color: white; padding: 15px; border-radius: 5px;">
+    <div id="notification" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #4CAF50; color: white; padding: 15px; border-radius: 5px; z-index: 1000;">
         Registration submitted successfully!
     </div>
     <script>
@@ -382,6 +382,16 @@
                 displayImagePreview(this, idBackPreview, idBackBox);
             });
 
+            function showNotification(message) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.style.display = 'block';
+
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 2000);
+            }
+
             document.getElementById("donationForm").addEventListener("submit", function (event) {
                 event.preventDefault();
 
@@ -424,12 +434,8 @@
                     localStorage.setItem('donations', JSON.stringify(donations));
 
                     // Show notification and reset form
-                    document.getElementById('notification').style.display = 'block';
+                    showNotification("Donor registered successfully!");
                     document.getElementById("donationForm").reset();
-
-                    setTimeout(() => {
-                        document.getElementById('notification').style.display = 'none';
-                    }, 2000);
                 }
             });
 
