@@ -311,7 +311,6 @@
             const donorTableBody = document.getElementById('donorTableBody');
             const editDonorModal = document.getElementById('editDonorModal');
 
-            // Fetch donor data from the database
             function fetchDonors() {
                 fetch('get_donors.php')
                     .then(response => response.json())
@@ -319,9 +318,8 @@
                     .catch(error => console.error('Error fetching donors:', error));
             }
 
-            // Function to display donor data in the table
             function displayDonorTable(donors) {
-                donorTableBody.innerHTML = ''; // Clear existing rows
+                donorTableBody.innerHTML = ''; 
 
                 if (donors.length === 0) {
                     donorTableBody.innerHTML = '<tr><td colspan="7" class="text-center">No donors registered yet.</td></tr>';
@@ -339,22 +337,17 @@
                         <td>${donor.location}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" onclick="editDonor(${donor.id})">Update</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteDonor(${donor.id}, this)">Delete</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteDonor(${donor.id})">Delete</button>
                         </td>
                     `;
                     donorTableBody.appendChild(row);
                 });
             }
 
-            // Function to handle editing a donor
-            function editDonor(id) {
+            window.editDonor = function (id) {
                 fetch(`get_donor.php?id=${id}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.error) {
-                            alert(data.error);
-                            return;
-                        }
                         document.getElementById('editName').value = data.name;
                         document.getElementById('editBirthdate').value = data.birthdate;
                         document.getElementById('editGender').value = data.gender;
@@ -365,46 +358,9 @@
                         editDonorModal.style.display = 'flex';
                     })
                     .catch(error => console.error('Error fetching donor:', error));
-            }
+            };
 
-            // Function to close the edit donor modal
-            function closeEditModal() {
-                editDonorModal.style.display = 'none';
-            }
-
-            // Function to handle saving edited donor
-            function saveEditedDonor() {
-                const id = document.getElementById('editDonorId').value;
-                const donorData = {
-                    id,
-                    name: document.getElementById('editName').value,
-                    birthdate: document.getElementById('editBirthdate').value,
-                    gender: document.getElementById('editGender').value,
-                    contact: document.getElementById('editContact').value,
-                    blood_type: document.getElementById('editBloodType').value,
-                    location: document.getElementById('editLocation').value
-                };
-
-                fetch('update_donor.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(donorData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                        closeEditModal();
-                        fetchDonors();
-                    } else {
-                        alert(data.error || 'Failed to update donor.');
-                    }
-                })
-                .catch(error => console.error('Error updating donor:', error));
-            }
-
-            // Function to handle deleting a donor
-            function deleteDonor(id, button) {
+            window.deleteDonor = function (id) {
                 if (confirm('Are you sure you want to delete this donor?')) {
                     fetch(`delete_donor.php?id=${id}`, { method: 'DELETE' })
                         .then(response => response.json())
@@ -418,14 +374,46 @@
                         })
                         .catch(error => console.error('Error deleting donor:', error));
                 }
+            };
+
+            function closeEditModal() {
+                editDonorModal.style.display = 'none';
             }
 
-            // Fetch donors on page load
-            fetchDonors();
-
-            // Attach close function to cancel button
             document.querySelector('.cancel-btn').addEventListener('click', closeEditModal);
+
+            fetchDonors();
         });
+
+        function saveEditedDonor() {
+            const id = document.getElementById('editDonorId').value;
+            const donorData = {
+                id,
+                name: document.getElementById('editName').value,
+                birthdate: document.getElementById('editBirthdate').value,
+                gender: document.getElementById('editGender').value,
+                contact: document.getElementById('editContact').value,
+                blood_type: document.getElementById('editBloodType').value,
+                location: document.getElementById('editLocation').value
+            };
+
+            fetch('update_donor.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(donorData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    document.getElementById('editDonorModal').style.display = 'none';
+                    fetchDonors();
+                } else {
+                    alert(data.error || 'Failed to update donor.');
+                }
+            })
+            .catch(error => console.error('Error updating donor:', error));
+        }
     </script>
 </body>
 </html>

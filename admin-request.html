@@ -340,7 +340,6 @@
             const requestTableBody = document.getElementById('requestTableBody');
             const editFormModal = document.getElementById('editFormModal');
 
-           
             function fetchRequests() {
                 fetch('get_requests.php')
                     .then(response => response.json())
@@ -348,7 +347,6 @@
                     .catch(error => console.error('Error fetching requests:', error));
             }
 
-           
             function displayRequestTable(requests) {
                 requestTableBody.innerHTML = ''; 
 
@@ -368,14 +366,13 @@
                         <td>${request.location}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" onclick="editRequest(${request.id})">Update</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteRequest(${request.id}, this)">Delete</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteRequest(${request.id})">Delete</button>
                         </td>
                     `;
                     requestTableBody.appendChild(row);
                 });
             }
 
-            
             window.editRequest = function (id) {
                 fetch(`get_request.php?id=${id}`)
                     .then(response => response.json())
@@ -392,8 +389,7 @@
                     .catch(error => console.error('Error fetching request:', error));
             };
 
-            
-            window.deleteRequest = function (id, button) {
+            window.deleteRequest = function (id) {
                 if (confirm('Are you sure you want to delete this request?')) {
                     fetch(`delete_request.php?id=${id}`, { method: 'DELETE' })
                         .then(response => response.json())
@@ -409,28 +405,25 @@
                 }
             };
 
-        
             function closeEditForm() {
                 editFormModal.style.display = 'none';
             }
 
-            
-            fetchRequests();
-
-          
             document.querySelector('.cancel-btn').addEventListener('click', closeEditForm);
+
+            fetchRequests();
         });
 
         function saveEditedRequest() {
             const id = document.getElementById('editRequestId').value;
             const requestData = {
                 id,
-                name: document.getElementById('editRequestName').value,
-                birthdate: document.getElementById('editRequestBirthdate').value,
-                gender: document.getElementById('editRequestGender').value,
-                contact: document.getElementById('editRequestContact').value,
-                bloodType: document.getElementById('editRequestBloodType').value,
-                location: document.getElementById('editRequestLocation').value
+                name: document.getElementById('editName').value,
+                birthdate: document.getElementById('editBirthdate').value,
+                gender: document.getElementById('editGender').value,
+                contact: document.getElementById('editContact').value,
+                bloodType: document.getElementById('editBloodType').value,
+                location: document.getElementById('editLocation').value
             };
 
             fetch('update_request.php', {
@@ -442,29 +435,13 @@
             .then(data => {
                 if (data.message) {
                     alert(data.message);
-                    closeEditForm();
+                    document.getElementById('editFormModal').style.display = 'none';
                     fetchRequests();
                 } else {
                     alert(data.error || 'Failed to update request.');
                 }
             })
             .catch(error => console.error('Error updating request:', error));
-        }
-
-        function deleteRequest(id, button) {
-            if (confirm('Are you sure you want to delete this request?')) {
-                fetch(`delete_request.php?id=${id}`, { method: 'DELETE' })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message) {
-                            alert(data.message);
-                            fetchRequests();
-                        } else {
-                            alert(data.error || 'Failed to delete request.');
-                        }
-                    })
-                    .catch(error => console.error('Error deleting request:', error));
-            }
         }
     </script>
 </body>
